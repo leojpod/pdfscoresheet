@@ -1,10 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
-<!-- above set at the top of the file will set     -->
-<!-- the browser's rendering engine into           -->
-<!-- "Quirks Mode". Replacing this declaration     -->
-<!-- with a "Standards Mode" doctype is supported, -->
-<!-- but may lead to some differences in layout.   -->
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -15,11 +9,29 @@
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script
 	src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+<script type="text/javascript" src="./scoresheetApp.js"></script>
 </head>
+<style>
+.ui-roaster-grid  .ui-grid-a, .ui-roaster-grid .ui-grid-d {
+	width: 10%;
+}
+.ui-roaster-grid  .ui-grid-b, .ui-roaster-grid .ui-grid-c {
+	width: 40%;
+}
+.ui-custom-radius.ui-btn-icon-notext.ui-corner-all {
+    -webkit-border-radius: .3125em;
+    border-radius: .3125em;
+}
+.ui-event-grid  .ui-grid-a, .ui-roaster-grid .ui-grid-b {
+	width: 10%;
+}
+.ui-roaster-grid .ui-grid-c {
+	width: 80%;
+}
+</style>
 
 <body>
-	<div data-role="page">
-		<div data-role="header" style="overflow: hidden;">
+	<div data-role="header" style="overflow: hidden;" data-theme="a">
 			<h1>PDF scoresheet generator</h1>
 			<!--     <div data-role="navbar"> -->
 			<!--         <ul> -->
@@ -28,11 +40,55 @@
 			<!--             <li><a href="#">Three</a></li> -->
 			<!--         </ul> -->
 			<!--     </div>/navbar -->
-		</div>
-		<!-- /header -->
+	</div>
+	
+	<div data-role="footer" data-position="fixed" data-theme="a" data-tap-toggle="false">
+		<button id="prev-button" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l">Prev</button>
+		<h1>&nbsp;</h1>	
+		<button id="next-button" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-carat-r">Next</button>
+	</div>
+	
+	<div data-role="page" id="team-selection">
+	
 		<div role="main" class="ui-content">
-		
-		</div>
+			<h3 class="ui-bar ui-bar-a ui-corner-all"> team selection</h3>
+			<fieldset class="ui-grid-b ui-body ui-body-a ui-corner-all">
+				<div class="ui-block-a">
+					<label for="home-team" class="ui-hidden-accessible">Home team name:</label>
+					<input type="text" name="home-team" id="home-team" placeholder="home team name" value="">
+				</div>
+				<div class="ui-block-b" style="text-align: center;height: 100%; vertical-align: middle;">VS</div>
+				<div class="ui-block-c">
+					<label for="visitor-team" class="ui-hidden-accessible">Visitor team name:</label>
+					<input type="text" name="visitor-team" id="visitor-team" placeholder="visitor team name" value="">
+				</div>
+			</fieldset>
+		</div>		
+	
+	</div>
+	<div data-role="page" id="home-team-filling">
+		<div role="main" class="ui-content">
+			<h1> Home Team roaster</h1>
+			<fieldset id="home-roaster">
+				
+			</fieldset>
+		</div>		
+	</div>
+	<div data-role="page" id="visitor-team-filling">
+		<div role="main" class="ui-content">
+			<h1> Visitor Team roaster</h1>
+			<fieldset id="visitor-roaster">
+				
+			</fieldset>
+		</div>		
+	</div>
+	<div data-role="page" id="event-filling">
+		<div role="main" class="ui-content">
+			<h1> Event filling</h1>
+			<fieldset id="event-entry">
+				
+			</fieldset>
+		</div>		
 	</div>
 </body>
 </html>

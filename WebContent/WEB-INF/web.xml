@@ -8,6 +8,10 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>api-gen</servlet-name>
+    <url-pattern>/api/generate.pdf</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>api-gen</servlet-name>
     <url-pattern>/api/generate</url-pattern>
   </servlet-mapping>
 </web-app>

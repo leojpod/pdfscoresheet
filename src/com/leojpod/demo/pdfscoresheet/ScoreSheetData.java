@@ -20,6 +20,11 @@ public class ScoreSheetData {
 		public int compareTo(Player o) {
 			return this.number - o.number;
 		}
+		
+		@Override
+		public String toString() {
+			return "#" + number + " " + firstName.charAt(0) + ". " + lastName;
+		}
 	}
 	public static abstract class GameEvent implements Comparable<GameEvent> {
 		public static enum EventType {
@@ -31,7 +36,7 @@ public class ScoreSheetData {
 			
 			public Time(int minutes, int seconds) {
 				this.minutes = minutes; this.seconds = seconds;
-				period = minutes % 20 + 1;
+				period = minutes / 20 + 1;
 			}
 			@Override
 			public int compareTo(Time o) {
@@ -62,6 +67,14 @@ public class ScoreSheetData {
 		}
 		public Goal(Time time, Player scorer) {
 			this(time, scorer, null, null);
+		}
+		@Override
+		public String toString() {
+			String str = "Goal for " + scorer.team.name + " scored by " + scorer;
+			str += (firstAssist == null) ?
+					"" : (" assisted by " + firstAssist + ((secondAssist == null)?
+							"" : " and " + secondAssist));
+			return str;
 		}
 	}
 	public static class Penalty extends GameEvent {
@@ -97,9 +110,25 @@ public class ScoreSheetData {
 	
 	public final Team homeTeam, visitorTeam;
 	public final List<GameEvent> events;
+	public int homeScore, visitorScore;
 	
 	public ScoreSheetData(Team home, Team visitor) {
 		homeTeam = home; visitorTeam = visitor;
 		events = new LinkedList<>();
+	}
+	
+	public void updateScore() {
+		homeScore = visitorScore = 0;
+		for(GameEvent e : events){
+			if (e instanceof Goal) {
+				Goal goal = (Goal) e;
+				if (goal.scorer.team == homeTeam) {
+					homeScore += 1;
+				} else {
+					// should be visitor team for as long as hockey is played only with 2 teams at a time... 
+					visitorScore += 1;
+				}
+			} //else it doen't change the score
+		}
 	}
 }
